@@ -1,0 +1,24 @@
+@import "src/styles/all.scss";
+
+.header{
+    @include flex($jc: space-between);
+
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+kendo-expansionpanel{
+    margin: 1rem 0;
+}
+
+.withoutPadding ::ng-deep .k-expander-content{
+    padding: 0;
+}
+
+::ng-deep .k-expander{
+    border-radius: 10px !important;
+
+    &-header{
+        background: $panel-header-bg !important;
+    }
+}

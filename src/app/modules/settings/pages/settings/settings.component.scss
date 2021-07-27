@@ -1,0 +1,10 @@
+.table{
+    ::ng-deep kendo-grid{
+        min-width: 800px;
+    }
+  
+    &-wrapper{
+        overflow: auto;
+    }
+  }
+  

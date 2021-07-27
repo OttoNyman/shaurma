@@ -1,0 +1,31 @@
+<kendo-floatinglabel [text]="placeholder">
+    <kendo-dropdownlist
+         [data]="items" (open)="onOpen()" [value]="dataValue"
+         #input (valueChange)="onChange(input.value)"
+         textField="name" valueField="id"
+         [defaultItem]="{name: defaultItem.name | translate, id: defaultItem.id}"
+         [loading]="loading">
+
+         <ng-template kendoDropDownListNoDataTemplate>
+            <h4 *ngIf="!loading; else noData">
+                <span class="k-icon k-i-warning"></span><br /><br />
+                {{'NO_ITEMS' | translate}}
+            </h4>
+
+            <ng-template #noData>
+                <h4>
+                    <span class="k-icon k-i-loading"></span>
+                    <br /><br />
+                    {{'LOADING' | translate}}
+                </h4>
+            </ng-template>
+         </ng-template>
+
+    </kendo-dropdownlist>
+</kendo-floatinglabel>
+
+<ul class="errors">
+    <li class="error" *ngFor="let error of errors">
+        {{error.msg | translate:error.details}}
+    </li>
+</ul>

@@ -1,0 +1,81 @@
+<app-admin-layout>
+  <app-panel title="{{ 'CURRENT_ORDER' | translate }}" [withPadding]="false">
+    <div [appLoader]="current.loading">
+      <div class="table-wrapper">
+        <app-simple-grid [data]="current.items" [pageable]="false" class="table">
+
+          <kendo-grid-column title="Order">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{ dataItem | orderToString }}
+            </ng-template>
+          </kendo-grid-column>
+
+          <kendo-grid-column field="quantity" [width]="100" class="text-center"></kendo-grid-column>
+          <kendo-grid-column field="amount" [width]="100" class="text-center"></kendo-grid-column>
+          <kendo-grid-column field="orderDate" [width]="150" class="text-center">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{ dataItem.orderDate | date: "ccc dd.MM.YYYY" }}
+            </ng-template>
+          </kendo-grid-column>
+
+        </app-simple-grid>
+      </div>
+
+      <div class="current-row">
+        <app-input placeholder="Amount" [disabled]="true" [dataValue]="currentTotalPrice"></app-input>
+      </div>
+    </div>
+  </app-panel>
+
+  <app-panel title="{{ 'PAYMENT_INFORMATION' | translate }}">
+    <div [appLoader]="loading">
+      <div class="info">
+        <div class="cashier">
+          <div class="item-header">{{"CURRENT_CASHIER" | translate}}</div>
+          <div *ngIf="payment?.cashier">
+            <div>{{payment?.cashier.firstName}}</div>
+            <div>{{ payment?.cashier.lastName }}</div>
+            <div>{{ payment?.cashier.phone }}</div>
+          </div>
+
+          <div *ngIf="!payment?.cashier">{{'NO_CASHIER' | translate}}</div>
+        </div>
+
+        <div class="sum">
+          <div class="item-header">{{ "PAYMENT_INFO" | translate }}</div>
+          <div class="sum-val">{{ currentTotalPrice }}</div>
+        </div>
+
+        <div>
+          <div class="item-header">{{ "PAYMENT_CURRENT_STATUS" | translate }}</div>
+          <div [ngClass]="{
+            confirmed: payment?.confirmed,
+            notConfirmed: !payment?.confirmed
+          }">
+            {{(payment?.confirmed ? 'PAYMENT_CONFIRMED' : 'PAYMENT_NOT_CONFIRMED') | translate}}
+          </div>
+        </div>
+      </div>
+
+      <ul class="payment">
+        <li class="cash" *ngIf="payment?.paymentMethod.cash">
+          <div>{{"CASH" | translate}}</div>
+        </li>
+
+        <li *ngIf="payment?.paymentMethod.card?.creditCard">
+          <div class="card">
+            <span>{{"CARD" | translate}}</span>
+            <span>{{payment?.paymentMethod.card.creditCard | formatCard}}</span>
+            <span>{{payment?.paymentMethod.card.bankName}}</span>
+            <span>{{payment?.paymentMethod.card.notes}}</span>
+          </div>
+        </li>
+
+        <li class="qr" *ngIf="payment?.paymentMethod.card?.qr">
+          <div class="qr-label">{{'QR' | translate}}:</div>
+          <img width="158" height="159" alt="" [src]="payment?.paymentMethod.card.qr" />
+        </li>
+      </ul>
+    </div>
+  </app-panel>
+</app-admin-layout>

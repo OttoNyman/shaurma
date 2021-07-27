@@ -1,0 +1,23 @@
+<div>
+    <kendo-chip-list [selection]="mode" (selectedChange)="onChange($event)" class="list">
+        <div *ngIf="!!selectedItems.length; else empty">
+            <kendo-chip *ngFor="let item of selectedItems" [label]="item.name" [removable]="true"
+                removeIcon="k-icon k-i-close" (remove)="onRemove(item.id)">
+            </kendo-chip>
+        </div>
+
+        <ng-template #empty>
+            {{'NOT_SELECTED' | translate}}
+        </ng-template>
+
+        <kendo-autocomplete #autocomplete [data]="variants" [placeholder]="placeholder" [loading]="loading" valueField="name"
+            class="input" (valueChange)="onAdd($event)" (open)="onLoad()" (filterChange)="onFilterChange($event)" [filterable]="true">
+        </kendo-autocomplete>
+    </kendo-chip-list>
+
+    <ul class="errors">
+        <li class="error" *ngFor="let error of errors">
+            {{error.msg | translate:error.details}}
+        </li>
+    </ul>
+</div>

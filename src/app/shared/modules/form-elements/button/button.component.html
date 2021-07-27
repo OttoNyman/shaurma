@@ -1,0 +1,8 @@
+<button 
+    kendoButton [primary]="primary" [disabled]="disabled" 
+    [look]="look" (click)="onClick($event)" [type]="type" 
+    [icon]="icon" [class.icon]="icon"
+>
+    <kendo-loader type="infinite-spinner" *ngIf="loading" themeColor="secondary" size="small"></kendo-loader>
+    <ng-content></ng-content>
+</button>

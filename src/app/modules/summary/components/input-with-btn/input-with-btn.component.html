@@ -1,0 +1,11 @@
+<div class="row">
+    <app-numeric 
+        [dataValue]="value" 
+        (valueChanged)="onChange($event)" 
+        [disabled]="loading"
+        (keydown)="onKeyDown($event)"
+    ></app-numeric>
+
+    <app-button *ngIf="wasChanged" (click)="onSend()" [disabled]="loading" btnIcon="check"></app-button>
+    <app-button *ngIf="wasChanged" (click)="cancel()" [disabled]="loading" btnIcon="close"></app-button>
+</div>

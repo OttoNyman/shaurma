@@ -1,0 +1,15 @@
+<kendo-floatinglabel [text]="placeholder">
+    <kendo-datetimepicker 
+        [min]="min"
+        [(value)]="dataValue" 
+        (valueChange)="onChange($event)"
+        placeholder=""
+        format="dd.MM.yyyy HH:mm"
+    ></kendo-datetimepicker>
+</kendo-floatinglabel>
+
+<ul class="errors">
+    <li class="error" *ngFor="let error of errors">
+        {{error.msg | translate:error.details}}
+    </li>
+</ul>

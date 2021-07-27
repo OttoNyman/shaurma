@@ -1,0 +1,17 @@
+<div [ngStyle]="{backgroundImage: selectedLanguage.image | backgroundUrl}" #imgRef (click)="toggleLanguagePopup()"
+    class="languageSelector"></div>
+
+<kendo-popup [anchor]="imgAnchor" (anchorViewportLeave)="show = false" *ngIf="show" class="popup" #popup>
+    <kendo-listview [data]="languages" class="list-container">
+        <ng-template kendoListViewHeaderTemplate>
+            <div class="header">{{'LANGUAGES' | translate}}</div>
+        </ng-template>
+
+        <ng-template kendoListViewItemTemplate let-dataItem="dataItem">
+            <div class="list-item" (click)="changeLanguage(dataItem)">
+                <div class="item-photo" [ngStyle]="{backgroundImage: dataItem.image | backgroundUrl}"></div>
+                <span>{{dataItem.name}}</span>
+            </div>
+        </ng-template>
+    </kendo-listview>
+</kendo-popup>

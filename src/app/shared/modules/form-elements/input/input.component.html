@@ -1,0 +1,11 @@
+<div>
+    <kendo-floatinglabel [text]="placeholder" class="input">
+        <input required kendoTextBox [value]="dataValue" #input [disabled]="disabled" (input)="onChange(input.value)" />
+    </kendo-floatinglabel>
+
+    <ul class="errors">
+        <li class="error" *ngFor="let error of errors">
+            {{error.msg | translate:error.details}}
+        </li>
+    </ul>
+</div>

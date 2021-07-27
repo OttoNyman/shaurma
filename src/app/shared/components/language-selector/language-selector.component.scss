@@ -1,0 +1,40 @@
+@import 'src/styles/all.scss';
+
+.languageSelector{
+    @extend %bg-image;
+
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.list{
+    &-container{
+        padding: .5rem;
+        min-width: 200px;
+    }
+
+    &-item{
+        @include flex;
+        padding: .5rem 0;
+        cursor: pointer;
+    }
+}
+
+.header{
+    font: {
+        size: 1rem;
+        weight: bold;
+        family: 'Arial'
+    };
+
+    text-align: center;
+
+    padding: .25rem;
+}
+
+.item-photo{
+    @extend %bg-image;
+
+    border-radius: 50%;
+    margin-right: .5rem;
+}

@@ -1,0 +1,78 @@
+@import 'src/styles/all.scss';
+
+.container{
+    height: 100vh;
+    width: 300px;
+    display: none;
+
+    kendo-drawer{
+        z-index: 9999;
+    }
+
+    &.k-drawer-expanded{
+        display: block;
+    }
+
+    @media all and(max-width: $layout-break){
+        width: 100vw !important;
+
+        &.k-drawer-expanded::ng-deep{
+            .k-drawer{
+                @include flex($ai: flex-start);
+                width: 100%;
+            }
+        }
+    }
+}
+
+.k-drawer-link{
+    width: 100%;
+    display: block;
+    margin-left: 1rem;
+
+    color: $menu-item-color;
+    font-size: .85rem;
+
+    &:hover{
+        color: $menu-item-color_hover;
+    }
+}
+
+.k-drawer{
+    background: $app-black;
+    height: 100vh;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.header{
+    @include flex($jc: flex-start);
+
+    padding: .5rem;
+    margin-bottom: 1rem;
+
+    &-title{
+        font-size: 2rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: $primary;
+    }
+
+    @media all and(max-width: $layout-break){
+        justify-content: flex-end;
+    }
+}
+
+.active-link{
+    color: $primary;
+
+    &:hover{
+        color: darken($color: $primary, $amount: 10%)
+    }
+}
+
+kendo-drawer-container ::ng-deep .k-drawer-item.k-state-selected{
+    background: transparent !important;
+}

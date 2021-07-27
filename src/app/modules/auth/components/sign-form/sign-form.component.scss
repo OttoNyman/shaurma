@@ -1,0 +1,18 @@
+@import 'src/styles/all.scss';
+
+.form{
+    display: flex;
+    flex-direction: column;
+
+    .form-name{
+        font-size: 1.75rem;
+
+        @media all and(max-width: $tablet-breakpoint) {
+            text-align: center;
+        }
+    }
+
+    app-input, app-masked-input{
+        margin: .5rem 0;
+    }
+}

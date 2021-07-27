@@ -1,0 +1,205 @@
+<app-admin-layout>
+  <app-panel [title]="'DISHES' | translate" [withPadding]="false" [defaultExpanded]="false" (open)="onDishOpen()">
+    <div class="table-wrapper">
+      <app-crud-grid 
+        [loading]="dishes.loading" [data]="dishes.items" [pageable]="true" [page]="dishes.page"
+        [onEdit]="dishEdited"
+        [onCreate]="dishCreated"
+        [onDelete]="dishDeleted"
+        [pageSize]="dishes.size" [hideHeaders]="false"
+        (createStart)="dishCreateStart()"
+        (editStart)="dishEditStart($event)"
+        (pageChange)="loadDish($event)"
+        (cancel)="dishes.editedDish = null"
+        class="table"
+    >
+      <kendo-grid-column field="name" [title]="'NAME' | translate">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+          <app-input 
+            [placeholder]="'NAME' | translate"
+            (valueChanged)="dishes.editedDish.name = $event"
+            [dataValue]="dishes.editedDish.name"
+            [errors]="dishes.validator?.errors.fields.name || []"
+          ></app-input>
+        </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column field="price" editor="numeric" [title]="'PRICE' | translate" [width]="250">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+          <app-numeric 
+            [placeholder]="'PRICE' | translate"
+            (valueChanged)="dishes.editedDish.price = $event"
+            [dataValue]="dishes.editedDish.price"
+            [errors]="dishes.validator?.errors.fields.price || []"
+          ></app-numeric>
+        </ng-template>
+      </kendo-grid-column>
+    </app-crud-grid>
+  </div>
+</app-panel>
+
+  <app-panel [title]="'ADDITIONS' | translate" [withPadding]="false" [defaultExpanded]="false" (open)="onAdditionOpen()">
+    <div class="table-wrapper">
+    <app-crud-grid 
+      [loading]="additions.loading" [data]="additions.items" [pageable]="true" [page]="additions.page"
+      [pageSize]="additions.size" [hideHeaders]="false"
+      [onCreate]="additionCreated"
+      [onEdit]="additionEdited"
+      [onDelete]="additionDeleted"
+      (createStart)="additionCreateStart()"
+      (editStart)="additionEditStart($event)"
+      (pageChange)="loadAddition($event)"
+      (cancel)="additions.editedAddition= null"
+      class="table"
+    >
+      <kendo-grid-column field="name" [title]="'NAME' | translate">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+          <app-input 
+            [placeholder]="'NAME' | translate"
+            (valueChanged)="additions.editedAddition.name = $event"
+            [dataValue]="additions.editedAddition.name"
+            [errors]="additions.validator?.errors.fields.name || []"
+          ></app-input>
+        </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column field="price" editor="numeric" [title]="'PRICE' | translate" [width]="250">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+          <app-numeric 
+            [placeholder]="'PRICE' | translate"
+            (valueChanged)="additions.editedAddition.price = $event"
+            [dataValue]="additions.editedAddition.price"
+            [errors]="additions.validator?.errors.fields.price || []"
+          ></app-numeric>
+        </ng-template>
+      </kendo-grid-column>
+    </app-crud-grid>
+  </div>
+</app-panel>
+
+  <app-panel [title]="'DRINKS' | translate" [withPadding]="false" [defaultExpanded]="false" (open)="onDrinkOpen()">
+    <div class="table-wrapper">
+    <app-crud-grid 
+      [loading]="drinks.loading" [data]="drinks.items" [pageable]="true" [page]="drinks.page"
+      [pageSize]="drinks.size" [hideHeaders]="false"
+      [onCreate]="drinkCreated"
+      [onEdit]="drinkEdited"
+      [onDelete]="drinkDeleted"
+      (createStart)="drinkCreateStart()"
+      (editStart)="drinkEditStart($event)"
+      (pageChange)="loadDrink($event)"
+      (cancel)="drinks.editedDrink= null"
+      class="table"
+    >
+      <kendo-grid-column field="name" [title]="'NAME' | translate">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+          <app-input 
+            [placeholder]="'NAME' | translate"
+            (valueChanged)="drinks.editedDrink.name = $event"
+            [dataValue]="drinks.editedDrink.name"
+            [errors]="drinks.validator?.errors.fields.name || []"
+          ></app-input>
+        </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column field="price" editor="numeric" [title]="'PRICE' | translate" [width]="250">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+          <app-numeric 
+            [placeholder]="'PRICE' | translate"
+            (valueChanged)="drinks.editedDrink.price = $event"
+            [dataValue]="drinks.editedDrink.price"
+            [errors]="drinks.validator?.errors.fields.price || []"
+          ></app-numeric>
+        </ng-template>
+      </kendo-grid-column>
+    </app-crud-grid>
+  </div>
+</app-panel>
+
+<app-panel [title]="'REMARK' | translate" [withPadding]="false" [defaultExpanded]="false" (open)="onRemarkOpen()">
+    <div class="table-wrapper">
+    <app-crud-grid 
+      [loading]="remarks.loading" [data]="remarks.items" [pageable]="true" [page]="remarks.page"
+      [pageSize]="remarks.size" [hideHeaders]="false"
+      [onCreate]="remarkCreated"
+      [onEdit]="remarkEdited"
+      [onDelete]="remarkDeleted"
+      (createStart)="remarkCreateStart()"
+      (editStart)="remarkEditStart($event)"
+      (pageChange)="loadRemark($event)"
+      (cancel)="remarks.editedRemark= null"
+      class="table"
+    >
+      <kendo-grid-column field="name" [title]="'NAME' | translate">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+          <app-input 
+            [placeholder]="'NAME' | translate"
+            (valueChanged)="remarks.editedRemark.name = $event"
+            [dataValue]="remarks.editedRemark.name"
+            [errors]="remarks.validator?.errors.fields.name || []"
+          ></app-input>
+        </ng-template>
+      </kendo-grid-column>
+    </app-crud-grid>
+  </div>
+</app-panel>
+
+<app-panel [title]="'ASSORTMENT' | translate" [withPadding]="false" [defaultExpanded]="false" (open)="onAssortmentOpen()">
+  <div class="table-wrapper">
+    <app-crud-grid 
+      [loading]="assortments.loading" [data]="assortments.items" [pageable]="true" [page]="assortments.page"
+      [pageSize]="assortments.size" [hideHeaders]="false" [canAdd]="false" [canDelete]="false"
+      [onEdit]="assortmentEdited"
+      (pageChange)="loadAssortment($event)" 
+      (editStart)="assortmentEditStart($event)"
+      (cancel)="assortments.editedAssortment = null"
+      class="table"
+    >
+      <kendo-grid-column [title]="'NAME' | translate">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          {{dataItem.dish.name}}
+        </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column [title]="'ADDITION' | translate" [width]="500">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <span *ngIf="dataItem.additions.length">
+            {{dataItem.additions | additionsToString}}
+          </span>
+
+          <span *ngIf="!dataItem.additions.length">
+            {{'NO_ADDITIONS' | translate}}
+          </span>
+        </ng-template>
+
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+          <app-multiselect
+            [placeholder]="'ADDITIONS' | translate"
+            [errors]="assortments.validator?.errors.fields.additions || []"
+            [loadItems]="getAllAdditions"
+            [dataValue]="assortments.editedAssortment.additions"
+            (valueChanged)="assortmentAdditionsChanged($event)"
+          ></app-multiselect>
+        </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column [title]="'HALFABLE' | translate" [width]="100">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <app-checkbox
+            [disabled]="true"
+            [dataValue]="dataItem.halfable"
+          ></app-checkbox>
+        </ng-template>
+
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+          <app-checkbox
+            [dataValue]="assortments.editedAssortment?.halfable"
+            (valueChanged)="assortments.editedAssortment.halfable = $event"
+            [errors]="assortments.validator?.errors.fields.halfable || []"
+          ></app-checkbox>
+        </ng-template>
+      </kendo-grid-column>
+    </app-crud-grid>
+  </div>
+</app-panel>
+</app-admin-layout>

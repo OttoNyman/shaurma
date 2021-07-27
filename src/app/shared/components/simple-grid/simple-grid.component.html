@@ -1,0 +1,23 @@
+<kendo-grid [appLoader]="loading" [data]="data" [hideHeader]="hideHeaders" [pageable]="pagerSettings" 
+    [skip]="(page - 1) * pageSize" [pageSize]="pageSize" [rowClass]="getRowClass"
+    (pageChange)="onPageChange($event)" class="custom-grid" scrollable="none">
+    
+    <ng-content></ng-content>
+
+    <ng-template kendoPagerTemplate let-totalPages="totalPages" let-currentPage="currentPage" *ngIf="pageable">
+        <kendo-pager-page-sizes [pageSizes]="pageSizes"></kendo-pager-page-sizes>
+
+        <div class="center">
+            <kendo-pager-input class="pager-input"></kendo-pager-input>
+            <kendo-pager-prev-buttons></kendo-pager-prev-buttons>
+            <kendo-pager-next-buttons></kendo-pager-next-buttons>
+        </div>
+
+        <kendo-grid-messages
+                [pagerItemsPerPage]="'ITEMS_PER_PAGE' | translate"
+                [noRecords]="'NO_ITEMS' | translate"
+                [pagerOf]="'PAGER_OF' | translate"
+                [pagerPage]="'PAGE' | translate"
+        ></kendo-grid-messages>
+    </ng-template>
+</kendo-grid>

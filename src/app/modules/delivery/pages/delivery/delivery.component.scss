@@ -1,0 +1,48 @@
+.desc-list{
+    margin: 0;
+    font-size: .9rem;
+}
+
+.row{
+    display: flex;
+    flex-wrap: wrap;
+
+    &>*{
+        margin: .5rem;
+        width: 200px;
+    }
+}
+
+.table{
+    ::ng-deep kendo-grid{
+        min-width: 800px;
+    }
+
+    &-wrapper{
+        overflow: auto;
+    }
+}
+
+.phone{
+    padding-top: 0;
+    padding: 1rem .5rem;
+    font-weight: bold;
+    font-size: 1.2rem;
+
+    @media all and(max-width: 400px){
+        font-size: 1rem;
+    }
+}
+
+.pdf-wrapper{
+    position: absolute;
+    left: -1000px;
+    top: 0;
+}
+
+kendo-pdf-export {
+    white-space: pre;
+    font-size: .75rem;
+    font-family: "DejaVu Sans", "Arial", sans-serif;
+}
+

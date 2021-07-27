@@ -1,0 +1,19 @@
+<form class="form" (ngSubmit)="onSubmit($event)" novalidate>
+    <div class="form-name">{{'LOGIN' | translate}}</div>
+
+    <app-input 
+        placeholder="E-mail"
+        [dataValue]="loginFormData.email"
+        (valueChanged)="loginFormData.email = $event"
+        [errors]="(loginValidator.errors.fields.email || []).concat(loginValidator.errors.fields.eMail || [])"
+    ></app-input>
+
+    <app-button
+        [disabled]="loading || !loginValidator.wasValidated || loginValidator.errors.invalid"
+        [loading]="loading"
+    >
+        {{'LOGIN' | translate}}
+    </app-button>
+
+    <div class="alternate"></div>
+</form>

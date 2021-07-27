@@ -1,0 +1,19 @@
+<kendo-drawer-container class="container">
+  <kendo-drawer
+          #drawer [items]="items" [mode]="'push'"
+          [expanded]="defaultOpen" [autoCollapse]="false" [width]="300"
+  >
+    <ng-template kendoDrawerItemTemplate let-item>
+      <div class="k-drawer-link" [routerLink]="item.path" routerLinkActive="active-link">
+        <span>{{item.text | translate}}</span>
+      </div>
+    </ng-template>
+
+    <ng-template kendoDrawerHeaderTemplate>
+      <div class="header">
+        <img src="assets/images/auth-logo-admin.png" />
+        <span class="header-title">Borscht</span>
+      </div>
+    </ng-template>
+  </kendo-drawer>
+</kendo-drawer-container>

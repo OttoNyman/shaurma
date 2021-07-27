@@ -1,0 +1,21 @@
+@import 'src/styles/all.scss';
+
+.form-row{
+    flex-wrap: wrap;
+}
+
+.form-row>*{
+    @include flex($ai: flex-start, $jc: flex-start);
+
+    margin: .5rem;
+}
+
+.line{
+    margin: 1rem;
+    border-top: 1px solid $border-color;
+}
+
+.checkbox{
+    display: flex;
+    align-items: center !important;
+}

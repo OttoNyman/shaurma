@@ -1,0 +1,14 @@
+<kendo-expansionpanel 
+    [title]="title" 
+    [expanded]="defaultExpanded" 
+    [class.withoutPadding]="!withPadding"
+    (expandedChange)="expandChange($event)"
+>
+    <ng-template kendoExpansionPanelTitleDirective>
+        <div class="header">
+            <span>{{title}}</span>
+        </div>
+    </ng-template>
+
+    <ng-content></ng-content>
+</kendo-expansionpanel>

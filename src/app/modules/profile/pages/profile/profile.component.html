@@ -1,0 +1,81 @@
+<app-admin-layout>
+    <form (ngSubmit)="onSave($event)" [appLoader]="loading" (keydown)="onKeyPress($event)">
+        <app-panel [title]="'PROFILE' | translate">
+            <div class="row">
+                <div class="profile-row">
+                    <app-input [placeholder]="'FIRST_NAME' | translate" [dataValue]="profileData.firstName"
+                        (valueChanged)="profileData.firstName = $event"
+                        [errors]="profileValidators.errors.fields.firstName">
+                    </app-input>
+
+                    <app-input [placeholder]="'LAST_NAME' | translate" [dataValue]="profileData.lastName"
+                        (valueChanged)="profileData.lastName = $event"
+                        [errors]="profileValidators.errors.fields.lastName">
+                    </app-input>
+                </div>
+
+                <div class="profile-row">
+                    <app-input [placeholder]="'EMAIL' | translate" [dataValue]="profileData.email"
+                        (valueChanged)="profileData.email = $event" [errors]="profileValidators.errors.fields.email">
+                    </app-input>
+
+                    <app-masked-input mask="+38 (999) 000-00-00" placeholder="{{'PHONE' | translate}}"
+                        [dataValue]="profileData.phone" (valueChanged)="profileData.phone = $event" class="mask"
+                        [errors]="profileValidators.errors.fields.phone"></app-masked-input>
+                </div>
+            </div>
+        </app-panel>
+
+        <app-panel [title]="'MY_PAYMENT_INFO' | translate">
+            <div class="payment-row">
+                <app-checkbox [placeholder]="'CASH' | translate" [dataValue]="profileData.cash"
+                    (valueChanged)="profileData.cash = $event"></app-checkbox>
+            </div>
+
+            <div class="payment-row">
+                <app-checkbox [placeholder]="'CARD' | translate" [dataValue]="profileData.card"
+                    (valueChanged)="profileData.card = $event"></app-checkbox>
+            </div>
+
+            <div class="card-fields">
+                <div class="payment-inputs">
+                    <app-masked-input mask="0000 0000 0000 0000" placeholder="{{'CARD_NUMBER' | translate}}"
+                        [dataValue]="profileData.cardNumber" (valueChanged)="profileData.cardNumber = $event"
+                        class="mask" *ngIf="profileData.card" [errors]="paymentValidators.errors.fields.cardNumber">
+                    </app-masked-input>
+
+                    <app-input [placeholder]="'BANK' | translate" [dataValue]="profileData.bankName"
+                        (valueChanged)="profileData.bankName = $event" *ngIf="profileData.card"
+                        [errors]="paymentValidators.errors.fields.bankName"></app-input>
+
+                    <app-input [placeholder]="'NOTE' | translate" [dataValue]="profileData.note"
+                        (valueChanged)="profileData.note = $event" *ngIf="profileData.card"></app-input>
+                </div>
+
+                <div class="qr-row" *ngIf="profileData.card">
+                    <div class="qr" appDnd (fileDropped)="onFileDropped($event)">
+                        <div class="qr-label">{{'QR' | translate}}</div>
+
+                        <img class="qr-img" [src]="profileData.qr" alt="QR code" *ngIf="hasQR" />
+                        <div class="qr-none" *ngIf="!hasQR">{{'NO_QR' | translate}}</div>
+                    </div>
+
+                    <div class="qr-actions">
+                        <div class="qr-buttons">
+                            <input type="file" hidden id="file" name="file" #fileInput accept="image/*"
+                                (change)="onQRChange(fileInput.files[0])" />
+
+                            <app-button (click)="onAddQR()" type="button">{{'ADD_QR' | translate}}</app-button>
+                            <app-button (click)="onResetQR()" [disabled]="!hasQR">{{'CLEAR_QR' | translate}}
+                            </app-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </app-panel>
+
+        <div class="save">
+            <app-button [disabled]="!isFormValid || loading" class="save-btn" autofocus>Save</app-button>
+        </div>
+    </form>
+</app-admin-layout>

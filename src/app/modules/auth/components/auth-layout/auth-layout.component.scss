@@ -1,0 +1,50 @@
+@import 'src/styles/all.scss';
+
+.wrapper{
+    @include flex;
+
+    max-width: 1000px;
+    width: 75%;
+    height: 100vh;
+    margin: auto;
+
+    @media all and (max-width: $tablet-breakpoint) {
+        flex-direction: column;
+    }
+}
+
+.intro{
+    @include flex($dir: column);
+
+    width: 100%;
+
+    .title{
+        text-transform: uppercase;
+        font-size: 2.5rem;
+        margin: .75rem 0;
+    }
+
+    @media all and(max-width: $tablet-breakpoint) {
+        div{
+            @include flex($dir: column);
+        }
+    }
+}
+
+.line{
+    height: 400px;
+    width: 400px;
+    flex-basis: 1px;
+
+    max-height: 90vh;
+    max-width: 90vw;
+    margin: 1rem;
+
+    background: gray;
+}
+
+.content{
+    @include flex($dir: column);
+
+    width: 100%;
+}

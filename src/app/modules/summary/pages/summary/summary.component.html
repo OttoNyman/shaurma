@@ -1,0 +1,115 @@
+<app-admin-layout>
+    <app-panel title="{{'GENERAL' | translate}}{{(!isClosed && orderStatusInfo.data?.endTime ? 'ORDER_END_TIME' : '') | translate:endData}}">
+        <div [appLoader]="orderStatusInfo.loading || isStateChanged">
+            <div class="row" *ngIf="!isClosed; else start">
+                <div [appLoader]="!orderStatusInfo.loading && currentCashierInfo.loading" class="row flex-4 noPadd">
+                    <app-select class="flex-50" [placeholder]="'CURRENT_CASHIER' | translate"
+                        [loadItems]="onLoadCashiers" [dataValue]="cashierSelect"
+                        (valueChanged)="onCashierChange($event)">
+                    </app-select>
+
+                    <app-input class="flex-50" [disabled]="true" [dataValue]="paymentMethods"
+                        [placeholder]="'PAYMENT_METHODS' | translate">
+                    </app-input>
+                </div>
+
+                <app-button class="flex-2" (click)="onStop()">
+                    {{'STOP_ORDERING' | translate}}
+                </app-button>
+            </div>
+
+            <ng-template #start>
+                <div class="row">
+                    <app-datetime-input [fromNow]="true" [dataValue]="endTime" [placeholder]="'END_TIME' | translate"
+                        (valueChanged)="onEndDateChange($event)" class="flex-50"></app-datetime-input>
+    
+                    <app-button (click)="onStart()" class="flex-50">{{'START_ORDERING' | translate}}</app-button>
+                </div>
+            </ng-template>
+
+            <div class="row" [appLoader]="!orderStatusInfo.loading && orderSummaryInfo.loading">
+                <app-numeric class="flex-1" [disabled]="true" [placeholder]="'SUMMARY_AMOUNT' | translate"
+                    [dataValue]="orderSummaryInfo.data?.totalCost"></app-numeric>
+
+                <app-numeric class="flex-1 confirmed" [disabled]="true" [placeholder]="'PAID_AMOUNT' | translate"
+                    [dataValue]="orderSummaryInfo.data?.totalPayed"></app-numeric>
+
+                <app-numeric class="flex-1 unconfirmed" [disabled]="true" [placeholder]="'UNPAID_AMOUNT' | translate"
+                    [dataValue]="orderSummaryInfo.data?.totalDebt"></app-numeric>
+
+                <app-numeric class="flex-1 confirmed" [disabled]="true" [placeholder]="'REST' | translate"
+                    [dataValue]="totalRest"></app-numeric>
+
+                <app-date-input [placeholder]="'ORDER_DATE' | translate" [dataValue]="selectedDate"
+                    (valueChanged)="onDateChange($event)" class="flex-2" [toNow]="true"></app-date-input>
+            </div>
+        </div>
+    </app-panel>
+
+    <app-panel [title]="'SUMMARY_ORDER' | translate" [withPadding]="false">
+        <div class="table-wrapper">
+            <app-simple-grid [pageable]="true" [pageSize]="summaryOrder.size" [page]="summaryOrder.page"
+                [hideHeaders]="false" [data]="summaryOrder.items" [loading]="summaryOrder.loading"
+                (pageChange)="onPageChange($event)" class="table">
+
+                <kendo-grid-column [title]="'USER' | translate">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                        <a routerLink="/user/{{dataItem.user.id}}">
+                            {{dataItem.user.lastName + ' ' + dataItem.user.firstName}}
+                        </a>
+                    </ng-template>
+                </kendo-grid-column>
+
+                <kendo-grid-column [title]="'ORDER' | translate">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                        <ul>
+                            <li *ngFor="let order of dataItem.orders">{{order | orderToString:true}}</li>
+                        </ul>
+                    </ng-template>
+                </kendo-grid-column>
+
+                <kendo-grid-column [title]="'CASHIER' | translate">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                        <a routerLink="/user/{{currentOrderCashier.id}}" *ngIf="currentOrderCashier; else noCashier">
+                            {{currentOrderCashier.lastName + ' ' + currentOrderCashier.firstName}}
+                        </a>
+    
+                        <ng-template #noCashier>
+                            {{'NO_CASHIER' | translate}}
+                        </ng-template>
+                    </ng-template>
+                </kendo-grid-column>
+    
+                <kendo-grid-column [title]="'AMOUNT' | translate" field="amount" [width]="100"></kendo-grid-column>
+    
+                <kendo-grid-column [title]="'PAID' | translate" [width]="180">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                        <app-input-with-btn
+                            *ngIf="isCurrentOrderCashier"
+                            [dataValue]="dataItem.paidAmount"
+                            [details]="dataItem"
+                            [send]="payFor"
+                        ></app-input-with-btn>
+    
+                        <div *ngIf="!isCurrentOrderCashier">{{dataItem.paidAmount || 0}}</div>
+                    </ng-template>
+                </kendo-grid-column>
+    
+                <kendo-grid-column [title]="'REST' | translate" [width]="100">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                        <span [ngClass]="{
+                            rest: dataItem.amount - dataItem.paidAmount < 0,
+                            debt: dataItem.amount - dataItem.paidAmount > 0
+                        }">{{(dataItem.paidAmount - dataItem.amount) || 0}}</span>
+                    </ng-template>
+                </kendo-grid-column>
+            </app-simple-grid>
+        </div>
+    </app-panel>
+
+    <div class="refresh-row">
+        <app-button (click)="refresh()">
+            {{'REFRESH' | translate}}
+        </app-button>
+    </div>
+</app-admin-layout>

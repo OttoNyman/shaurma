@@ -1,0 +1,105 @@
+@import 'src/styles/all.scss';
+@import 'src/styles/fonts';
+
+//customize kendo
+$border-radius: 7px;
+
+@import '~@progress/kendo-theme-default/dist/all.scss';
+
+.k-floating-label-container{
+    color: gray;
+    padding: 0;
+}
+
+.k-floating-label-container .k-label,
+.k-floating-label-container .k-maskedtextbox.k-state-focused + label,
+.k-floating-label-container.active .k-maskedtextbox + label{
+    top: 0px !important;
+    left: .5rem !important;
+    font-size: .7rem;
+}
+
+.k-floating-label-container:not(.k-state-focused) input:invalid + label,
+.k-floating-label-container .k-maskedtextbox + label{
+    top: .75rem !important;
+    left: 1rem !important;
+    font-size: 1rem;
+}
+
+.input .k-floating-label-container{
+    margin: 0;
+}
+
+.k-input, [kendotextbox], input[type="text"]{
+    padding: 1rem !important;
+    padding-top: 1.5rem !important;
+}
+
+//general styles
+*, *::after, *::before{
+    box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 12px;
+    background-color: #ccc;
+}
+
+::-webkit-scrollbar-track{
+    border: none;
+}
+
+html{
+    font-family: Arial;
+    font-size: 16px;
+}
+
+body{
+    background: $app-bg;
+    margin: 0;
+    padding: 0;
+
+    overflow-x: hidden;
+}
+
+h1, [kendoButton]{
+    font-weight: 900;
+}
+
+.app-loader{
+    @include flex;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(255, 255, 255, .9);
+
+    &>i.k-icon{
+        font-size: 3rem;
+        width: 3rem;
+        height: 3rem;
+    }
+}
+
+.errors{
+    font-size: .9rem;
+    color: red;
+    margin: 0;
+
+    &>li:first-child, &>li:last-child{
+        margin-top: .5rem;
+    }
+}
+
+.text-center{
+    text-align: center !important;
+}

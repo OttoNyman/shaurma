@@ -1,0 +1,155 @@
+@import "src/styles/all.scss";
+
+$size: 200px;
+
+.mask {
+    width: 204px;
+}
+
+.row {
+    flex-wrap: wrap;
+    display: flex;
+}
+
+.profile-row {
+    @extend .row;
+
+    & > * {
+        margin: 0.5rem;
+    }
+}
+
+.payment {
+    &-row {
+        @extend .row;
+        margin-bottom: 0.5rem;
+    }
+
+    &-inputs {
+        @extend .row;
+        margin: 0.5rem 0 1rem 0;
+
+        @media all and(max-width: 700px) {
+            // justify-content: center;
+        }
+
+        & > * {
+            margin-top: 0.5rem;
+            margin-right: 1rem;
+        }
+    }
+}
+
+.qr {
+    @include flex($jc: flex-start, $dir: column);
+
+    width: $size;
+    height: $size;
+
+    padding: 0.25rem;
+    margin-right: 1rem;
+
+    border: 1px solid #eee;
+    border-radius: 5px;
+
+    &-row {
+        @include flex($jc: flex-start, $ai: flex-end);
+        flex-wrap: wrap;
+
+        @media all and(max-width: 700px) {
+            // justify-content: center;
+        }
+    }
+
+    &-img {
+        margin: auto;
+        width: 80%;
+        height: 80%;
+    }
+
+    &-label {
+        font-size: 0.75rem;
+        color: $gray-text;
+
+        width: 100%;
+    }
+
+    &-none {
+        color: $gray-text;
+        font-weight: bold;
+        text-align: center;
+
+        margin: auto;
+    }
+
+    &-actions {
+        @include flex($jc: flex-end, $ai: flex-start, $dir: column);
+    }
+
+    &-buttons ::ng-deep button {
+        margin: 0.5rem 0;
+    }
+}
+
+.card-fields {
+    margin-left: 2rem;
+}
+
+.save {
+    @include flex($jc: flex-end);
+
+    &-btn {
+        min-width: 200px;
+    }
+}
+
+.fileOver {
+    animation: shake 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+
+    10% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+    }
+
+    20% {
+        transform: translate(-3px, 0px) rotate(1deg);
+    }
+
+    30% {
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+
+    40% {
+        transform: translate(1px, -1px) rotate(1deg);
+    }
+
+    50% {
+        transform: translate(-1px, 2px) rotate(-1deg);
+    }
+
+    60% {
+        transform: translate(-3px, 1px) rotate(0deg);
+    }
+
+    70% {
+        transform: translate(3px, 1px) rotate(-1deg);
+    }
+
+    80% {
+        transform: translate(-1px, -1px) rotate(1deg);
+    }
+
+    90% {
+        transform: translate(1px, 2px) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(1px, -2px) rotate(-1deg);
+    }
+}

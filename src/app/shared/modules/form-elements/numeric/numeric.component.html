@@ -1,0 +1,15 @@
+<div>
+    <kendo-floatinglabel [text]="placeholder" class="input">
+        <kendo-numerictextbox
+                (blur)="blur.emit()"
+                [min]="min" [max]="max" [format]="format" [value]="dataValue"
+                (valueChange)="onChange($event)" [disabled]="disabled" [spinners]="spinners"
+        ></kendo-numerictextbox>
+    </kendo-floatinglabel>
+
+    <ul class="errors k-d-block">
+        <li class="error" *ngFor="let error of errors">
+            {{error.msg | translate:error.details}}
+        </li>
+    </ul>
+</div>

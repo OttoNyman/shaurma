@@ -1,0 +1,20 @@
+<div class="wrapper">
+    <div class="k-d-flex k-align-items-center">
+        <button kendoButton icon="menu" look="flat" (click)="toggleDrawer()" class="toggle-btn"></button>
+        <div class="title">{{title | async | translate}}</div>
+    </div>
+
+    <div class="info">
+        <div class="user">
+            <span class="user-name">{{userService.getUser().getValue().fullName}}</span>
+            <button 
+                kendoButton 
+                [icon]="logouting ? 'loading' : 'logout'" 
+                (click)="onLogout()"
+                look="clear"
+            >{{'LOGOUT' | translate}}</button>
+        </div>
+        
+        <app-language-selector></app-language-selector>
+    </div>
+</div>

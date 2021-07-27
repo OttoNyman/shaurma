@@ -1,0 +1,69 @@
+@import 'src/main.scss';
+$basis: 100% / 6;
+
+@for $i from 1 through 6{
+    .flex-#{$i}{
+        flex-basis: $i * $basis;
+    }
+}
+
+.row{
+    display: flex;
+    flex-wrap: wrap;
+
+    &>*{
+        padding: 0 1rem 0 0;
+        margin-bottom: .5rem;
+        flex-grow: 1;
+        min-width: 200px;
+    }
+}
+
+.flex-50{
+    flex-basis: 50%;
+}
+
+.noPadd{
+    padding: 0 !important;
+}
+
+.confirmed ::ng-deep input{
+    color: green;
+}
+
+.unconfirmed ::ng-deep input{
+    color: red;
+}
+
+a{
+    color: #075e98;
+    text-decoration: underline;
+
+    cursor: pointer;
+
+    &:hover{
+        text-decoration: none;
+    }
+}
+
+.rest{
+    color: green;
+}
+
+.debt{
+    color: red;
+}
+
+.table{
+    ::ng-deep kendo-grid{
+        min-width: 800px;
+    }
+
+    &-wrapper{
+        overflow: auto;
+    }
+}
+
+.refresh-row{
+    @include flex($jc: flex-end);
+}

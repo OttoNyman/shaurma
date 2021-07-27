@@ -1,0 +1,19 @@
+:host{
+    appearance: none;
+    background: transparent;
+    border: none;
+}
+
+button{
+    width: 100%;
+    padding: .5rem 1rem;
+}
+
+.icon{
+    background: transparent;
+    border: none;
+
+    &:hover{
+        background: transparent;
+    }
+}

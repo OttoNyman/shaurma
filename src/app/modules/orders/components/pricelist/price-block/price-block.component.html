@@ -1,0 +1,16 @@
+<kendo-listview [data]="prices" [containerClass]="'k-d-flex k-flex-col k-flex-nowrap'">
+    <ng-template kendoListViewHeaderTemplate>
+        <div class="header">{{title}}</div>
+    </ng-template>
+
+    <ng-template kendoListViewItemTemplate let-dataItem="dataItem">
+        <div class="item">
+            <div class="item-name">{{dataItem.name}}</div>
+            <div class="item-price">{{dataItem.price.toFixed(2)}}</div>
+        </div>
+    </ng-template>
+</kendo-listview>
+
+<div *ngIf="!prices.length" class="empty">
+    {{'NO_ITEMS' | translate}}
+</div>

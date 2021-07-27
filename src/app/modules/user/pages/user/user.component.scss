@@ -1,0 +1,49 @@
+@import 'src/styles/all.scss';
+
+$size: 200px;
+
+.mask{
+    width: 204px;
+}
+
+.row{
+    flex-wrap: wrap;
+    display: flex;
+}
+
+.profile-row{
+    @extend .row;
+
+    &>*{
+        margin: .5rem;
+    }
+}
+
+.payment{
+    list-style-image: url('/assets/images/list-icon.png');
+  
+    &>*{
+      padding: 1rem 0;
+      border-top: 1px solid #eee;
+  
+      &>*:first-child{
+        padding: .5rem 1.5rem;
+      }
+    }
+  }
+  
+  .qr{
+    display: flex;
+  }
+
+.card{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  
+    margin-top: -0.5rem;
+  
+    &>*{
+      padding: .5rem 2rem 0 0;
+    }
+  }

@@ -1,0 +1,40 @@
+<kendo-grid 
+    (keydown)="onKeyPress($event)"
+    (dataStateChange)="onStateChange($event)" (edit)="editHandler($event)" (cancel)="cancelHandler($event)"
+    (save)="saveHandler($event)" (remove)="removeHandler($event)" (add)="addHandler($event)" (cancel)="cancel.emit()"
+
+    [appLoader]="loading" [data]="slicedData" [hideHeader]="hideHeaders" [pageable]="pagerSettings" 
+    [skip]="(page - 1) * pageSize" [pageSize]="pageSize" [rowClass]="getRowClass" class="custom-grid" scrollable="none">
+    <ng-template kendoGridToolbarTemplate *ngIf="canAdd">
+        <app-button kendoGridAddCommand type="button" btnIcon="plus" class="add"></app-button>
+    </ng-template>
+
+    <ng-content></ng-content>
+    
+    <kendo-grid-command-column [width]="300">
+        <ng-template kendoGridCellTemplate let-isNew="isNew">
+            <app-button kendoGridEditCommand type="button" btnIcon="edit" *ngIf="canEdit"></app-button>
+            <app-button kendoGridRemoveCommand type="button" btnIcon="delete" *ngIf="canDelete"></app-button>
+
+            <app-button kendoGridSaveCommand type="button">{{'SAVE' | translate}}</app-button>
+            <app-button kendoGridCancelCommand type="button">{{'CANCEL' | translate}}</app-button>
+        </ng-template>
+    </kendo-grid-command-column>
+
+    <ng-template kendoPagerTemplate let-totalPages="totalPages" let-currentPage="currentPage" *ngIf="pageable">
+        <kendo-pager-page-sizes [pageSizes]="pageSizes"></kendo-pager-page-sizes>
+
+        <div class="center">
+            <kendo-pager-input class="pager-input"></kendo-pager-input>
+            <kendo-pager-prev-buttons></kendo-pager-prev-buttons>
+            <kendo-pager-next-buttons></kendo-pager-next-buttons>
+        </div>
+
+        <kendo-grid-messages
+                [pagerItemsPerPage]="'ITEMS_PER_PAGE' | translate"
+                [noRecords]="'NO_ITEMS' | translate"
+                [pagerOf]="'PAGER_OF' | translate"
+                [pagerPage]="'PAGE' | translate"
+        ></kendo-grid-messages>
+    </ng-template>
+</kendo-grid>

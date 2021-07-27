@@ -1,0 +1,39 @@
+<form class="form" (ngSubmit)="onSubmit($event)" novalidate>
+    <div class="form-name">{{'SIGNIN' | translate}}</div>
+
+    <app-input 
+        placeholder="{{'FIRST_NAME' | translate}}"
+        [dataValue]="signFormData.firstName"
+        (valueChanged)="signFormData.firstName = $event"
+        [errors]="signFormValidator.errors.fields.firstName"
+    ></app-input>
+
+    <app-input 
+        placeholder="{{'LAST_NAME' | translate}}"
+        [dataValue]="signFormData.lastName"
+        (valueChanged)="signFormData.lastName = $event"
+        [errors]="signFormValidator.errors.fields.lastName"
+    ></app-input>
+
+    <app-masked-input
+        mask="+38 (999) 000-00-00"
+        placeholder="{{'PHONE' | translate}}"
+        [dataValue]="signFormData.phone"
+        (valueChanged)="signFormData.phone = $event"
+        [errors]="signFormValidator.errors.fields.phone"
+    ></app-masked-input>
+
+    <app-input 
+        placeholder="{{'EMAIL' | translate}}"
+        [dataValue]="signFormData.email"
+        (valueChanged)="signFormData.email = $event"
+        [errors]="signFormValidator.errors.fields.email"
+    ></app-input>
+
+    <app-button 
+        [disabled]="loading || signFormValidator.errors.invalid || !signFormValidator.wasValidated"
+        [loading]="loading"
+    >
+        {{'SIGNIN' | translate}}
+    </app-button>
+</form>

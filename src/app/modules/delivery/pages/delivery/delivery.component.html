@@ -1,0 +1,95 @@
+<app-admin-layout>
+    <app-panel title="{{'GENERAL' | translate}}">
+        <div class="phone">{{'PHONE' | translate}}: +380 (48) 796‒16‒83</div>
+
+        <div class="row" [appLoader]="generalInfo.loading">
+            <app-date-input
+                [placeholder]="'ORDER_DATE' | translate"
+                [dataValue]="generalInfo.date"
+                [toNow]="true"
+                (valueChanged)="onDateChange($event)"
+            ></app-date-input>
+
+            <app-input
+                [disabled]="true"
+                [dataValue]="generalInfo.dishCost"
+                [placeholder]="'DISH_COST' | translate"
+            ></app-input>
+
+            <app-input
+                [disabled]="true"
+                [dataValue]="generalInfo.drinkCost"
+                [placeholder]="'DRINK_COST' | translate"
+            ></app-input>
+
+            <app-input
+                [disabled]="true"
+                [dataValue]="generalInfo.totalCost"
+                [placeholder]="'TOTAL_COST' | translate"
+            ></app-input>
+        </div>
+
+        <div class="row">
+            <kendo-splitbutton
+                (buttonClick)="export()"
+                [data]="exportOptions.data"
+                icon="export"
+                look="outline"
+            >
+                {{exportOptions.data[exportOptions.exportType].text}}
+
+                <ng-template kendoSplitButtonItemTemplate let-dataItem>
+                    <em (click)="exportOptions.exportType = dataItem.index">{{ dataItem.text }}</em>
+                </ng-template>
+            </kendo-splitbutton>
+
+            <div class="pdf-wrapper">
+                <kendo-pdf-export #pdf paperSize="A4" margin="2cm">
+                    {{exportOptions.pdfData}}
+                </kendo-pdf-export>
+            </div>
+        </div>
+
+        <div class="row">
+            <app-button (click)="generate()">{{'GENERATE_LIST' | translate}}</app-button>
+        </div>
+    </app-panel>
+
+    <app-panel [title]="'DELIVERY_ORDER' | translate" [withPadding]="false">
+        <div class="table-wrapper">
+            <app-simple-grid [loading]="deliveryOrder.loading" [data]="deliveryOrder.items" [pageable]="true"
+                             [page]="deliveryOrder.page" [pageSize]="deliveryOrder.size"
+                             (pageChange)="onDeliveryOrderPageChange($event)" [hideHeaders]="false" class="table">
+
+                <kendo-grid-column [title]="'DESCRIPTION' | translate">
+                    <ng-template kendoGridCellTemplate let-orderItem>
+                        <div *ngIf="orderItem.order.dish?.id">{{orderItem.order.dish.name}}</div>
+                        <div *ngIf="orderItem.order.drink?.id">{{orderItem.order.drink.name}}</div>
+
+                        <ul class="desc-list" type="square" *ngIf="orderItem.order.dish?.id">
+                            <li *ngIf="orderItem.order.additions?.length">
+                                {{orderItem.order.additions | additionsToString}}
+                            </li>
+
+                            <li *ngIf="orderItem.order.cut">
+                                {{'CUT' | translate}}
+                            </li>
+
+                            <li *ngIf="orderItem.order.remark?.id">
+                                {{orderItem.order.remark.name}}
+                            </li>
+                        </ul>
+                    </ng-template>
+                </kendo-grid-column>
+
+                <kendo-grid-column field="quantity" [width]="100" [title]="'COUNT' | translate"
+                                   class="text-center"></kendo-grid-column>
+                <kendo-grid-column [width]="150" [title]="'ORDER_DATE' | translate">
+                    <ng-template kendoGridCellTemplate let-orderItem>
+                        {{orderItem.orderDate | date:'dd.LL.yyyy'}}
+                    </ng-template>
+                </kendo-grid-column>
+            </app-simple-grid>
+        </div>
+    </app-panel>
+</app-admin-layout>

@@ -1,0 +1,89 @@
+@import 'src/styles/all.scss';
+
+.center{
+    @include flex;
+
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.page-input{
+    appearance: none;
+    background: transparent;
+
+    text-align: center;
+
+    border: none;
+    border-bottom: 1px solid black;
+    padding: .3rem;
+
+    &:focus{
+        outline: none;
+    }
+}
+
+.pager-input{
+    display: inline;
+
+    ::ng-deep .k-input{
+        appearance: none;
+        background: transparent;
+
+        text-align: center;
+
+        border: none;
+        border-bottom: 1px solid black;
+        padding: 0 !important;
+
+        &:focus{
+            outline: none;
+        }
+    }
+
+    ::ng-deep .k-numeric-wrap{
+        background: transparent;
+        border: none;
+    }
+}
+
+.custom-grid ::ng-deep .table-row>td{
+    background: #fff;
+    border: 0;
+    border-bottom: 1px solid #eee;
+}
+
+.custom-grid ::ng-deep .k-pager-sizes{
+    flex-direction: row-reverse;
+
+    & .k-dropdown-wrap{
+        border-bottom: 1px solid black !important;
+        border: none;
+        background: transparent !important;
+        border-radius: 0; 
+
+        & .k-input{
+            padding: 0 0 0 1rem !important;
+        }
+    }
+}
+
+.custom-grid ::ng-deep .k-dropdown-wrap.k-state-focused{
+    box-shadow: none;
+}
+
+.custom-grid ::ng-deep .k-pager-last, .custom-grid ::ng-deep .k-pager-first{
+    display: none;
+}
+
+.custom-grid ::ng-deep th{
+    background: #fff;
+    font-weight: bold;
+
+    border: none;
+    border-bottom: 1px solid #eee;
+}
+
+.custom-grid ::ng-deep .k-pager-wrap{
+    background: $panel-header-bg;
+}

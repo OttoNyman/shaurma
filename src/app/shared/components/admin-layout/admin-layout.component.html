@@ -1,0 +1,11 @@
+<div class="wrapper">
+    <app-sidebar #sidebar [defaultOpen]="defaultDrawerState"></app-sidebar>
+
+    <div class="main" [@adminRouteAnimations]="prepareRoute">
+        <app-header (drawerToggled)="onToggle()" (logout)="logout()" [logouting]="logouting"></app-header>
+
+        <div class="content">
+            <ng-content></ng-content>
+        </div>
+    </div>
+</div>

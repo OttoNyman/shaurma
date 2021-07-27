@@ -1,0 +1,12 @@
+.input [disabled]{
+    background-color: #ccc;
+    color: black;
+
+    input{
+        user-select: text;
+    }
+}
+
+kendo-floatinglabel{
+    width: 100%;
+}

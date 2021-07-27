@@ -1,0 +1,17 @@
+@import 'src/styles/all.scss';
+
+.wrapper{
+    @include flex($dir: column);
+
+    width: 100vw;
+    height: 100vh;
+}
+
+.message{
+    font: {
+        weight: 300;
+        size: 1.5rem;
+    }
+
+    margin: 1rem;
+}

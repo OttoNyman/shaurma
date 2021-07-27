@@ -1,0 +1,81 @@
+<form novalidate (ngSubmit)="makeOrder($event)">
+    <div class="k-d-flex form-row">
+        <app-select 
+            placeholder="{{'DISH' | translate}}"
+            [loadItems]="loadDishes"
+            (valueChanged)="onDishChange($event)"
+            [dataValue]="newOrderFormData.dish"
+            [errors]="newOrderFormValidator.errors.fields.dish"
+        ></app-select>
+
+        <app-checkbox 
+            *ngIf="isHalfable"
+            class="checkbox"
+            placeholder="{{'CUT' | translate}}"
+            [dataValue]="newOrderFormData.cut" 
+            (valueChanged)="newOrderFormData.cut = $event"
+        ></app-checkbox>
+    </div>
+
+    <div class="k-d-flex form-row k-flex-wrap" *ngIf="hasDish">
+        <div *ngFor="let addition of additionsArray; let i = index; trackBy: trackAdditionFn">
+            <app-select
+                [details]="newOrderFormData.dish.id"
+                (valueChanged)="newOrderFormData.additions[i] = $event"
+                [dataValue]="newOrderFormData.additions[i]"
+                [placeholder]="'ADDITION_SEQ' | translate: {
+                    number: i + 1
+                }"
+                [loadItems]="loadAdditions"
+            ></app-select>
+        </div>
+    </div>
+
+    <div class="k-d-flex form-row">
+        <app-select 
+            placeholder="{{'REMARK' | translate}}" 
+            (valueChanged)="newOrderFormData.remark = $event" 
+            [dataValue]="newOrderFormData.remark"
+            [loadItems]="loadRemarks"
+            *ngIf="hasDish"
+        ></app-select>
+    </div>
+
+    <div class="k-d-flex form-row">
+        <app-select 
+            placeholder="{{'DRINK' | translate:'{count: 1}'}}" 
+            [loadItems]="loadDrinks" 
+            [dataValue]="newOrderFormData.drink"
+            (valueChanged)="newOrderFormData.drink = $event"
+        ></app-select>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="form-row k-d-flex k-justify-content-between">
+        <div class="form-row">
+            <app-numeric
+                placeholder="{{'COUNT' | translate}}"
+                [min]="1"
+                [max]="10"
+                [errors]="newOrderFormValidator.errors.fields.quantity"
+                [dataValue]="newOrderFormData.quantity"
+                (valueChanged)="newOrderFormData.quantity = $event"
+            ></app-numeric>
+
+            <app-input
+                placeholder="{{'PRICE' | translate}}"
+                [disabled]="true"
+                [dataValue]="totalPrice.toFixed(2)"
+            ></app-input>
+        </div>
+
+        <div class="form-row">
+            <app-button 
+                [disabled]="newOrderFormValidator.errors.invalid || !newOrderFormValidator.wasValidated"
+            >
+                {{'ADD_TO_ORDER' | translate}}
+            </app-button>
+        </div>
+    </div>
+</form>

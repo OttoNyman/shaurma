@@ -1,0 +1,8 @@
+<app-auth-layout>
+    <app-login-form [onLogin]="onLogin" [loading]="loading"></app-login-form>
+    <span routerLink="/sign" class="link" #link>
+        <app-button [primary]="false" type="button" (click)="link.click()">
+            {{'SIGNIN' | translate}}
+        </app-button>
+    </span>
+</app-auth-layout>

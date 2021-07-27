@@ -1,0 +1,17 @@
+<kendo-floatinglabel [text]="placeholder" class="input" [class.active]="active">
+    <kendo-maskedtextbox 
+        [mask]="mask" 
+        [value]="dataValue"
+        required
+        #input
+        (input)="onChange(input.value)"
+        [maskOnFocus]="true"
+        [disabled]="disabled"
+    ></kendo-maskedtextbox>
+</kendo-floatinglabel>
+
+<ul class="errors">
+    <li class="error" *ngFor="let error of errors">
+        {{error.msg | translate:error.details}}
+    </li>
+</ul>

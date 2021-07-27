@@ -1,0 +1,14 @@
+.input .k-label{
+    top: .75rem !important;
+    left: 1rem !important;
+    font-size: 1rem;
+}
+
+.input ::ng-deep [disabled]{
+    background-color: #ccc;
+    color: black;
+}
+
+kendo-floatinglabel{
+    width: 100%;
+}

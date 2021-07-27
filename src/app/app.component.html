@@ -1,0 +1,8 @@
+<div [@rootRouteAnimations]="prepareRoute(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
+</div>
+
+<div class="loader" *ngIf="loading">
+    <kendo-loader type="infinite-spinner" themeColor="primary" size="large"></kendo-loader>
+</div>
+<div kendoDialogContainer></div>

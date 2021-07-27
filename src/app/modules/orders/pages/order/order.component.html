@@ -1,0 +1,88 @@
+<app-admin-layout>
+    <app-panel
+        title="{{'MAKE_NEW_ORDER' | translate}}{{(isOpen && orderStatus.data?.endTime ? 'ORDER_END_TIME' : '') | translate:endData}}">
+        <div class="k-d-flex content">
+            <div class="form" [appLoader]="newOrder.form.loading || orderStatus.loading">
+                <app-new-order-form *ngIf="isOrderOpen; else closed" [loadDishes]="onLoadDishes"
+                    [loadDrinks]="onLoadDrinks" [loadRemarks]="onLoadRemarks" [loadAdditions]="onLoadAdditions"
+                    [onNewOrder]="onNewOrder" [restore]="restore" (formFilled)="setCanLeave($event)"></app-new-order-form>
+
+                <ng-template #closed>
+                    <div class="closed">
+                        <span>{{'ORDER_CLOSED' | translate}}</span>
+                    </div>
+                </ng-template>
+            </div>
+
+            <app-pricelist class="pricelist" [prices]="newOrder.pricelist.prices"
+                [appLoader]="newOrder.pricelist.loading"></app-pricelist>
+        </div>
+    </app-panel>
+
+    <app-panel title="{{'HISTORY' | translate}}" [withPadding]="false">
+        <div class="table-wrapper">
+            <app-simple-grid [loading]="history.loading" [data]="historyItems" [pageable]="true" [page]="history.page"
+                [pageSize]="history.size" (pageChange)="onHistoryPageChange($event)" class="table">
+
+                <kendo-grid-column>
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                        {{dataItem | orderToString}}
+                    </ng-template>
+                </kendo-grid-column>
+
+                <kendo-grid-column field="quantity" [width]="100" class="text-center"></kendo-grid-column>
+                <kendo-grid-column field="amount" [width]="100" class="text-center"></kendo-grid-column>
+                <kendo-grid-column field="orderDate" [width]="150" class="text-center">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                        {{dataItem.orderDate | date:'ccc dd.MM.YYYY':undefined:lang}}
+                    </ng-template>
+                </kendo-grid-column>
+
+                <kendo-grid-column [width]="80">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                        <i class="k-icon k-i-reset" (click)="restoreOrder(dataItem)"></i>
+                    </ng-template>
+                </kendo-grid-column>
+
+            </app-simple-grid>
+        </div>
+    </app-panel>
+
+    <app-panel title="{{'CURRENT_ORDER' | translate}}" [withPadding]="false">
+        <div [appLoader]="current.loading" class="table-wrapper">
+            <app-simple-grid [data]="current.items" [pageable]="false" class="table">
+
+                <kendo-grid-column>
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                        {{dataItem | orderToString}}
+                    </ng-template>
+                </kendo-grid-column>
+
+                <kendo-grid-column field="quantity" [width]="100" class="text-center"></kendo-grid-column>
+                <kendo-grid-column field="amount" [width]="100" class="text-center"></kendo-grid-column>
+                <kendo-grid-column field="orderDate" [width]="150" class="text-center">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                        {{dataItem.orderDate | date:'ccc dd.MM.YYYY':undefined:lang}}
+                    </ng-template>
+                </kendo-grid-column>
+
+                <kendo-grid-column [width]="80">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                        <i class="k-icon k-i-delete" (click)="deleteOrder(dataItem.orderId)"
+                            *ngIf="!isDeleting(dataItem.orderId) && isOpen"></i>
+
+                        <i class="k-icon k-i-loading" *ngIf="isDeleting(dataItem.orderId) || orderStatus.loading"></i>
+                    </ng-template>
+                </kendo-grid-column>
+
+            </app-simple-grid>
+
+            <div class="current-row">
+                <app-input [placeholder]="'AMOUNT' | translate" [disabled]="true" [dataValue]="currentTotalPrice">
+                </app-input>
+
+                <app-button routerLink="/payment">{{'TO_PAYMENT' | translate}}</app-button>
+            </div>
+        </div>
+    </app-panel>
+</app-admin-layout>

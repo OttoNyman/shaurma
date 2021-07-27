@@ -1,0 +1,9 @@
+<div class="price-panel">
+    <div class="price-panel-title">{{'PRICES' | translate}}</div>
+
+    <div class="price-panel-content">
+        <app-price-block title="{{'DISHES' | translate}}" [prices]="dishesPrice"></app-price-block>
+        <app-price-block title="{{'ADDITIONS' | translate}}" [prices]="additionsPrice"></app-price-block>
+        <app-price-block title="{{'DRINKS' | translate}}" [prices]="drinksPrice"></app-price-block>
+    </div>
+</div>

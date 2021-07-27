@@ -1,0 +1,14 @@
+<kendo-floatinglabel [text]="placeholder">
+    <kendo-datepicker 
+        [(value)]="dataValue" 
+        (valueChange)="onChange($event)"
+        [format]="format"
+        [max]="max"
+    ></kendo-datepicker>
+</kendo-floatinglabel>
+
+<ul class="errors">
+    <li class="error" *ngFor="let error of errors">
+        {{error.msg | translate:error.details}}
+    </li>
+</ul>

@@ -1,0 +1,45 @@
+<app-admin-layout>
+  <div [appLoader]="loading">
+    <app-panel [title]="'PROFILE' | translate">
+      <div class="row">
+        <div class="profile-row">
+          <app-input [placeholder]="'FIRST_NAME' | translate" [dataValue]="userData.firstName" [disabled]="true">
+          </app-input>
+
+          <app-input [placeholder]="'LAST_NAME' | translate" [dataValue]="userData.lastName" [disabled]="true">
+          </app-input>
+        </div>
+
+        <div class="profile-row">
+          <app-input [placeholder]="'EMAIL' | translate" [dataValue]="userData.email" [disabled]="true">
+          </app-input>
+
+          <app-masked-input placeholder="{{'PHONE' | translate}}" [dataValue]="userData.phone" class="mask"
+            [disabled]="true"></app-masked-input>
+        </div>
+      </div>
+    </app-panel>
+
+    <app-panel [title]="'PAYMENT_METHODS' | translate">
+      <ul class="payment">
+        <li class="cash" *ngIf="userData.cash">
+          <div>{{"CASH" | translate}}</div>
+        </li>
+
+        <li *ngIf="userData.card">
+          <div class="card">
+            <span>{{"CARD" | translate}}</span>
+            <span>{{userData.cardNumber}}</span>
+            <span>{{userData.bankName}}</span>
+            <span>{{userData.note}}</span>
+          </div>
+        </li>
+
+        <li class="qr" *ngIf="userData.qr">
+          <div class="qr-label">{{'QR' | translate}}:</div>
+          <img width="158" height="159" alt="" [src]="userData.qr" />
+        </li>
+      </ul>
+    </app-panel>
+  </div>
+</app-admin-layout>

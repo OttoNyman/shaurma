@@ -1,0 +1,9 @@
+@import "src/styles/all.scss";
+
+kendo-dropdownlist{
+    padding: 0rem;
+}
+
+::ng-deep .k-dropdown-wrap{
+    background: $white !important;
+}

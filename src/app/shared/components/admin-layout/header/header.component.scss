@@ -1,0 +1,65 @@
+@import 'src/styles/all.scss';
+
+.wrapper{
+    @include flex($jc: space-between);
+    width: 100%;
+    padding: 1rem 2rem;
+
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+
+    font-size: 1.5rem;
+    font-family: Monospace;
+
+    @media all and(max-width: $layout-break){
+        padding-left: 50px;
+        font-size: 1rem;
+    }
+}
+
+.title{
+    text-transform: uppercase;    
+}
+
+.info{
+    @include flex;
+
+    .user{
+        @include flex($dir: column, $ai: flex-start);
+        padding: 0 1rem;
+
+        .logout > span{
+            font-size: 1rem;
+            font-family: 'Arial';
+            color: rgb(61, 61, 226);
+            text-decoration: underline;
+
+            cursor: pointer;
+
+            &>span:hover{
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+.toggle-btn{
+    color: black;
+    font-size: 1rem;
+
+    margin-right: .5rem;
+
+    @media all and(max-width: $layout-break){
+        position: fixed;
+        top: 25px;
+        left: 15px;
+        z-index: 9999;
+
+        color: white !important;
+        mix-blend-mode: difference;
+
+        &:hover{
+            color: white;
+        }
+    }
+}
